@@ -1,0 +1,24 @@
+name: Green Commit Bot
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *" # Runs every day at midnight UTC
+  workflow_dispatch: # Allows you to run it manually from the Actions tab to test it
+
+permissions:
+  contents: write # CRITICAL: This gives the bot permission to push changes
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout content
+        uses: actions/checkout@v3
+
+      - name: Run script
+        run: |
+          chmod +x task.sh
+          ./task.sh
