@@ -1,0 +1,30 @@
+name: Daily Green Commit
+
+on:
+  schedule:
+    # Runs at 00:00 UTC daily (customize using https://crontab.guru/)
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allows manual trigger from Actions tab
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # Required for pushing commits
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history
+      
+      - name: Run commit script
+        run: |
+          bash task.sh
+      
+      - name: Push changes
+        run: |
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

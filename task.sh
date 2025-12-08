@@ -1,29 +1,39 @@
 #!/bin/bash
 
-# 1. Define the array of commit messages
+# Array of commit messages
 messages=(
-    "🐛 Fixed a minor bug" 
-    "✨ Updated documentation" 
-    "🚀 Performance improvements" 
-    "🎨 Code style formatting" 
-    "📦 Dependency update" 
-    "📝 Notes updated"
+  "📝 Daily update"
+  "🚀 Keep the streak alive"
+  "💪 Consistent progress"
+  "✨ Another day, another commit"
+  "🔥 Staying active"
+  "📊 Progress tracking"
+  "🎯 Daily contribution"
+  "⚡ Quick update"
+  "🌟 Keeping momentum"
+  "💻 Code life"
 )
 
-# 2. Select a random message
-size=${#messages[@]}
-index=$(($RANDOM % $size))
-message=${messages[$index]}
+# Generate random index
+random_index=$((RANDOM % ${#messages[@]}))
+commit_message="${messages[$random_index]}"
 
-# 3. Get current date/time and update the file
-# If update.md doesn't exist, this creates it. If it does, it overwrites it.
-echo "Last update: $(date)" > update.md
+# Get current date and time
+current_date=$(date "+%Y-%m-%d %H:%M:%S UTC")
 
-# 4. Configure Git User (Replace with your details)
-git config --global user.email "razeeniqbal98@gmail.com"
-git config --global user.name "razeeniqbal"
+# Create update.md if it doesn't exist
+if [ ! -f update.md ]; then
+  echo "# Daily Updates" > update.md
+  git add update.md
+fi
 
-# 5. Stage, Commit, and Push
+# Append timestamp to update.md
+echo "Last updated: $current_date" >> update.md
+
+# Configure Git (replace with your info)
+git config user.email "razeeniqbal@gmail.com"
+git config user.name "Razeen Iqbal"
+
+# Stage and commit
 git add update.md
-git commit -m "$message"
-git push
+git commit -m "$commit_message - $current_date"
