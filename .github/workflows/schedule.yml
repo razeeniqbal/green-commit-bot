@@ -3,7 +3,7 @@ name: Daily Green Commit
 on:
   schedule:
     # Runs at 00:00 UTC daily (customize using https://crontab.guru/)
-    - cron: '0 0 * * *'
+    - cron: '0 16 * * *'
   workflow_dispatch:  # Allows manual trigger from Actions tab
 
 jobs:
